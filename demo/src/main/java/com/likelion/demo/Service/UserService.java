@@ -1,7 +1,7 @@
 package com.likelion.demo.Service;
 
-import com.likelion.demo.Entity.UserEntity;
-import com.likelion.demo.Repository.UserRepository;
+import com.likelion.demo.DAO.UserDAO;
+import com.likelion.demo.DTO.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,31 +10,26 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    private final UserRepository userRepository;
+    //private final UserRepository userRepository;
+    private final UserDAO userDAO;
 
-    public UserEntity addUser(String name, String email) {
-        return userRepository.save(UserEntity.builder()
-                .name(name)
-                .email(email)
-                .build());
+    public UserDTO addUser(String name, String email, Long age) {
+        return userDAO.addUser(name, email, age);
     }
 
-    public List<UserEntity> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserDTO> getAllUsers() {
+        return userDAO.getAllUser();
     }
     
-    public UserEntity getUser(Long id) {
-        return userRepository.findById(id).orElse(null);
+    public UserDTO getUser(Long id) {
+        return userDAO.getUser(id);
     }
 
-    public UserEntity updateUser(Long id, String name, String email) {
-        UserEntity user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("invalid ID"));
-        user.setName(name);
-        user.setEmail(email);
-        return userRepository.save(user);
+    public UserDTO updateUser(UserDTO userDTO) {
+        return userDAO.updateUser(userDTO);
     }
 
     public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+        userDAO.deleteUser(id);
     }
 }

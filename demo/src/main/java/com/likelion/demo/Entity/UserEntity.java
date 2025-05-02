@@ -1,5 +1,6 @@
 package com.likelion.demo.Entity;
 
+import com.likelion.demo.DTO.UserDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,4 +21,16 @@ public class UserEntity {
 
     @Column
     private String email;
+
+    @Column
+    private Long age;
+
+    public UserDTO toDTO() {
+        return UserDTO.builder()
+                .id(id)
+                .name(name)
+                .email(email)
+                .age(age)
+                .build();
+    }
 }
