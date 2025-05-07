@@ -25,6 +25,10 @@ public class UserEntity {
     @Column
     private Long age;
 
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "detail_id", referencedColumnName = "id")
+    private UserDetailEntity userDetail;
+
     public UserDTO toDTO() {
         return UserDTO.builder()
                 .id(id)
