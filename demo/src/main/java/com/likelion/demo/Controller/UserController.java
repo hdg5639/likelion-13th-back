@@ -1,5 +1,6 @@
 package com.likelion.demo.Controller;
 
+import com.likelion.demo.DTO.UserDTO;
 import com.likelion.demo.Entity.UserEntity;
 import com.likelion.demo.Service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -16,30 +17,26 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserEntity> saveUser(@RequestParam String name,
-                                               @RequestParam String email){
-        UserEntity userEntity = userService.addUser(name, email);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userEntity);
+    public ResponseEntity<UserDTO> saveUser(@RequestParam String name,
+                                               @RequestParam String email,
+                                                @RequestParam Long age){
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(userService.addUser(name, email, age));
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<UserEntity>> getAllUsers(){
-        List<UserEntity> users = userService.getAllUsers();
-        return ResponseEntity.ok(users);
+    public ResponseEntity<List<UserDTO>> getAllUsers(){
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @GetMapping
-    public ResponseEntity<UserEntity> getUser(@RequestParam Long id){
-        UserEntity userEntity = userService.getUser(id);
-        return ResponseEntity.ok(userEntity);
+    public ResponseEntity<UserDTO> getUser(@RequestParam Long id){
+        return ResponseEntity.ok(userService.getUser(id));
     }
 
     @PatchMapping
-    public ResponseEntity<UserEntity> updateUser(@RequestBody UserEntity user){
-        UserEntity updatedUser = userService.updateUser(user.getId(),
-                user.getName(),
-                user.getEmail());
-        return ResponseEntity.ok(updatedUser);
+    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO user){
+        return ResponseEntity.ok(userService.updateUser(user));
     }
 
     @DeleteMapping
