@@ -26,7 +26,7 @@ public class BookEntity {
     @Column
     private String publisher;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private CategoryEntity category;
 

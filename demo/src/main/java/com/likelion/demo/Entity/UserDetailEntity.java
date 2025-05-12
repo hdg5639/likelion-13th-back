@@ -22,7 +22,7 @@ public class UserDetailEntity {
     @Column
     private String email;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity user;
 }
