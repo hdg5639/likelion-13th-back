@@ -17,7 +17,7 @@ public class BookEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column
     private String title;
 
     @Column
@@ -25,6 +25,10 @@ public class BookEntity {
 
     @Column
     private String publisher;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    private CategoryEntity category;
 
     public BookDTO toDTO() {
         return BookDTO.builder()

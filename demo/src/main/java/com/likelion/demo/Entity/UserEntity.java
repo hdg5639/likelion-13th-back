@@ -4,6 +4,8 @@ import com.likelion.demo.DTO.UserDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "user")
 @Builder
@@ -25,8 +27,7 @@ public class UserEntity {
     @Column
     private Long age;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "detail_id", referencedColumnName = "id")
+    @OneToOne(mappedBy = "user")
     private UserDetailEntity userDetail;
 
     public UserDTO toDTO() {
