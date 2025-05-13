@@ -21,4 +21,8 @@ public class UserDetailEntity {
 
     @Column
     private String email;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private UserEntity user;
 }
